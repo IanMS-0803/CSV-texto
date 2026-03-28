@@ -1,6 +1,13 @@
 const fs = require('fs');
 
-const csv = fs.readFileSync("dis-csv-discentes-de-graduacao-de-2025_1.csv", 'utf8').trim();
+let csv;
+
+try{
+    csv = fs.readFileSync("dis-csv-discentes-de-graduacao-de-2025_1.csv", 'utf8').trim();
+} catch(erro) {
+    console.log("erro inexperado ao tentar acessar o arquivo: " + erro);
+    return;
+}
 
 // Função que transoforma a tabela csv em um array de objects 
 const conversor = (tabelaCSV) => {
@@ -31,7 +38,5 @@ const preencherAluno = (linha, estrutura)=>{
 
     return aluno;
 }
-
-
 
 conversor(csv);
