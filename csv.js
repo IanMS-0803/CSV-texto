@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const csv = fs.readFileSync("dis-csv-discentes-de-graduacao-de-2025_1.csv", 'utf8');
+const csv = fs.readFileSync("dis-csv-discentes-de-graduacao-de-2025_1.csv", 'utf8').trim();
 
 // Função que transoforma a tabela csv em um array de objects 
 const conversor = (tabelaCSV) => {
@@ -16,15 +16,22 @@ const conversor = (tabelaCSV) => {
     //formata cada aluno para um object que possui campos definidos apartir dos headers da tabela csv
     const alunos = alunosDados.map((i) => preencherAluno(i,titulos));
 
+    //apenas para testes - lembrar de remover depois
     console.log(alunos);
 }
 
 const preencherAluno = (linha, estrutura)=>{
+    //cria o object aluno com campos vazios
     let aluno = {};
+
+    //cria e preenche os campos com base na ordem dos headers
     for(let i = 0; i < linha.length; i++){
         aluno[estrutura[i]] = linha[i].split('"').join('');
     }
+
     return aluno;
 }
+
+
 
 conversor(csv);
